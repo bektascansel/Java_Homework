@@ -1,0 +1,80 @@
+package kodlama.io.Devs.business.concretes;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import kodlama.io.Devs.business.abstracts.LanguagesTechnologyService;
+import kodlama.io.Devs.business.requests.languageTechnologyRequest.CreatLanguageTechnologyRequest;
+import kodlama.io.Devs.business.requests.languageTechnologyRequest.UpdateLanguageTechnologyRequest;
+import kodlama.io.Devs.business.responses.languageTechnologyResponse.GetAllLanguageTechnologyResponse;
+import kodlama.io.Devs.business.responses.languageTechnologyResponse.GetByIdLanguageTechnologyResponse;
+import kodlama.io.Devs.dataAccess.abstracts.LanguagesTechnologyRepository;
+import kodlama.io.Devs.entities.concretes.LanguageTechnology;
+
+@Service
+public class LanguagesTechnologyManager implements LanguagesTechnologyService{
+
+	private LanguagesTechnologyRepository languagesTechnologyRepository;
+	
+	
+	@Autowired
+	public LanguagesTechnologyManager(LanguagesTechnologyRepository languagesTechnologyRepository) {
+		this.languagesTechnologyRepository = languagesTechnologyRepository;
+	}
+
+
+	@Override
+	public List<GetAllLanguageTechnologyResponse> getAll() {
+		List<LanguageTechnology> technologies=languagesTechnologyRepository.findAll();
+		List<GetAllLanguageTechnologyResponse> allLanguageTechnologyResponses;
+		
+		
+		
+		for(LanguageTechnology technology:technologies) {
+			GetAllLanguageTechnologyResponse allLanguageTechnologyResponse=new GetAllLanguageTechnologyResponse();
+			allLanguageTechnologyResponse.setId(technology.getId());
+			allLanguageTechnologyResponse.setLanguageId(technology.getId());
+			allLanguageTechnologyResponse.setName(technology.getTechnologyName());
+		
+		}
+		
+		
+		
+	}
+
+
+	@Override
+	public void add(CreatLanguageTechnologyRequest creatLanguageTechnologyRequest) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void update(int id, UpdateLanguageTechnologyRequest updateLanguageTechnologyRequest) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public Optional<GetByIdLanguageTechnologyResponse> getById(int id) {
+		// TODO Auto-generated method stub
+		return Optional.empty();
+	}
+
+
+	@Override
+	public void delete(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+	
+	
+
+}

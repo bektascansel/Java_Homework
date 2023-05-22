@@ -1,0 +1,10 @@
+package kodlama.io.Devs.business.responses.programmingLanguageResponse;
+
+public class GetAllProgrammingLanguageResponse {
+	
+	private int id;
+	private String name;
+	private List<LanguageTechnology> technologies;
+	
+
+}

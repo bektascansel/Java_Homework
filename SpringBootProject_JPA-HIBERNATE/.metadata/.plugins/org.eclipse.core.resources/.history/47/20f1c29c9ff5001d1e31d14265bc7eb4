@@ -1,0 +1,62 @@
+package kodlama.io.Devs.webApi.controllers;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import kodlama.io.Devs.business.abstracts.ProgrammingLanguageService;
+import kodlama.io.Devs.entities.concretes.ProgrammingLanguage;
+
+//Controller olduğu belirtildi
+@RestController
+//controller adresi verildi
+@RequestMapping("/api/ProgrammingLanguage")
+public class ProgrammingLanguageControllers {
+
+	
+	private ProgrammingLanguageService programmingLanguageService;
+
+	
+	@Autowired
+	public ProgrammingLanguageControllers(ProgrammingLanguageService programmingLanguageService) {
+		this.programmingLanguageService = programmingLanguageService;
+	}
+	
+	
+	@GetMapping("/getAll")
+	List<ProgrammingLanguage> getAll() {
+		return programmingLanguageService.getAll();
+	}
+
+	
+	@GetMapping("/getAdd")
+	void Add(ProgrammingLanguage programmingLanguage) throws Exception {
+		programmingLanguageService.add(programmingLanguage);
+	}
+	
+	@GetMapping("/getDelete")
+	void delete(int id) {
+		programmingLanguageService.delete(id);
+	}
+    
+	@GetMapping("/getById")
+	ProgrammingLanguage getById(int id) {
+		return programmingLanguageService.getById(id);
+	}
+	
+	@GetMapping("/getUpdate")
+	void update(ProgrammingLanguage programmingLanguage) {
+		programmingLanguageService.update(programmingLanguage);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+}

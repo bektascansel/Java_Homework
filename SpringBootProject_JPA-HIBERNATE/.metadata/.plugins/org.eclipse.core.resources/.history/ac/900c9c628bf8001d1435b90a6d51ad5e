@@ -1,0 +1,50 @@
+package kodlama.io.Devs.business.requests.languageTechnologyRequest;
+
+import java.util.List;
+
+import kodlama.io.Devs.entities.concretes.ProgrammingLanguage;
+
+public class CreatLanguageTechnologyRequest {
+	
+	private String name;
+	
+	private int languageId;
+
+	
+	public CreatLanguageTechnologyRequest(String name, int languageId) {
+		this.name = name;
+		this.languageId = languageId;
+	}
+	
+
+	public CreatLanguageTechnologyRequest() {
+		
+	}
+
+	
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public List<ProgrammingLanguage> getLanguages() {
+		return languages;
+	}
+
+	public void setLanguages(List<ProgrammingLanguage> languages) {
+		this.languages = languages;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+
+}

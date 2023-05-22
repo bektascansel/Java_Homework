@@ -1,0 +1,58 @@
+package kodlama.io.Devs.business.concretes;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import kodlama.io.Devs.business.abstracts.LanguagesTechnologyService;
+import kodlama.io.Devs.dataAccess.abstracts.LanguagesTechnologyRepository;
+import kodlama.io.Devs.entities.concretes.LanguageTechnology;
+
+@Service
+public class LanguagesTechnologyManager implements LanguagesTechnologyService{
+
+	private LanguagesTechnologyRepository languagesTechnologyRepository;
+	
+	
+	@Autowired
+	public LanguagesTechnologyManager(LanguagesTechnologyRepository languagesTechnologyRepository) {
+		this.languagesTechnologyRepository = languagesTechnologyRepository;
+	}
+
+	
+	
+	@Override
+	public List<LanguageTechnology> getAll() {
+	
+		return languagesTechnologyRepository.findAll();
+	}
+
+	@Override
+	public void add(LanguageTechnology languageTechnology){
+		languagesTechnologyRepository.save(languageTechnology);
+		
+	}
+
+	@Override
+	public void update(int id, LanguageTechnology languageTechnology) {
+	        LanguageTechnology technology=languagesTechnologyRepository.findById(id).get();
+	        technology.setTechnologyName(languageTechnology.getTechnologyName());
+	        technology.setLanguage(languageTechnology.getLanguage());
+	        languagesTechnologyRepository.save(technology);
+		
+	}
+
+	@Override
+	public Optional<LanguageTechnology> getById(int id) {
+		return languagesTechnologyRepository.findById(id);
+	}
+
+	@Override
+	public void delete(int id) {
+		languagesTechnologyRepository.deleteById(id);
+		
+	}
+
+}

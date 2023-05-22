@@ -1,0 +1,70 @@
+package kodlama.io.Devs.business.concretes;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import kodlama.io.Devs.business.abstracts.ProgrammingLanguageService;
+import kodlama.io.Devs.dataAccess.business.ProgrammingLanguageRepository;
+import kodlama.io.Devs.entities.concretes.ProgrammingLanguage;
+
+@Service
+public class ProgrammingLanguageManager implements ProgrammingLanguageService{
+    
+	private ProgrammingLanguageRepository programmingLanguageRespository;
+	
+	
+	@Autowired
+	public ProgrammingLanguageManager(ProgrammingLanguageRepository programmingLanguageRespository) {
+		this.programmingLanguageRespository = programmingLanguageRespository;
+	}
+	
+
+	@Override
+	public List<ProgrammingLanguage> getAll() {
+		return programmingLanguageRespository.getAll();
+	}
+
+	@Override
+	public void add(ProgrammingLanguage programmingLanguage) throws Exception {
+		List<ProgrammingLanguage> list=programmingLanguageRespository.getAll();
+		
+		for(ProgrammingLanguage language:list) {
+			if(language.getName().equalsIgnoreCase(programmingLanguage.getName())) {
+				throw new Exception("Girilen programlama dili sistemde mevcuttur. Lütfen tekrardan deneyiniz");
+			}
+		}
+		
+		if(programmingLanguage.getName().isEmpty()) {
+			throw new Exception("Programlama dili ismi girilmedi. Lütfen giriniz.");
+		    }
+		
+		
+		programmingLanguageRespository.add(programmingLanguage);
+	}
+
+	
+	
+	
+	@Override
+	public void delete(int id ){
+		programmingLanguageRespository.delete(id);		
+	}
+
+	
+	
+	
+	@Override
+	public void update(int id,ProgrammingLanguage programmingLanguage) {
+		programmingLanguageRespository.update(id,programmingLanguage);
+	}
+
+	
+	
+	@Override
+	public ProgrammingLanguage getById(int id) {
+		return programmingLanguageRespository.getById(id);
+	}
+
+}
