@@ -33,28 +33,28 @@ public class ProgrammingLanguageControllers {
 	}
 	
 	
-	@GetMapping("/getAll")
+	@GetMapping("/GetAll")
 	List<GetAllProgrammingLanguageResponse> getAll() {
 		return programmingLanguageService.getAll();
 	}
 
 	
-	@PostMapping("/getAdd")
+	@PostMapping("/Post")
 	void Add(CreatProgrammingLanguageRequest creatProgrammingLanguageRequest) throws Exception {
 		programmingLanguageService.add(creatProgrammingLanguageRequest);
 	}
 	
-	@DeleteMapping("/getDelete")
+	@DeleteMapping("/Delete")
 	void delete(int id) {
 		programmingLanguageService.delete(id);
 	}
     
-	@GetMapping("/getById")
+	@GetMapping("/GetById")
 	Optional<GetByIdProgrammingLanguageResponse> getById(int id) {
 		return programmingLanguageService.getById(id);
 	}
 	
-	@PutMapping("/getUpdate")
+	@PutMapping("/Update")
 	void update(int id,UpdateProgrammingLanguageRequest languageRequest) {
 		programmingLanguageService.update(id,languageRequest);
 	}

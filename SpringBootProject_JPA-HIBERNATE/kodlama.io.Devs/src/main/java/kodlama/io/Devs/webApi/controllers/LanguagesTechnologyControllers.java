@@ -29,7 +29,7 @@ public class LanguagesTechnologyControllers {
 		this.languagesTechnologyService = languagesTechnologyService;
 	}
 
-    @GetMapping("/getAll")
+    @GetMapping("/GetAll")
 	List<GetAllLanguageTechnologyResponse> getAll() {
 		return languagesTechnologyService.getAll();
 	}
@@ -45,7 +45,7 @@ public class LanguagesTechnologyControllers {
 		languagesTechnologyService.delete(id);
 	}
     
-	@GetMapping("/getById")
+	@GetMapping("/GetById")
 	Optional<GetByIdLanguageTechnologyResponse> getById(int id) {
 		return languagesTechnologyService.getById(id);
 	}
