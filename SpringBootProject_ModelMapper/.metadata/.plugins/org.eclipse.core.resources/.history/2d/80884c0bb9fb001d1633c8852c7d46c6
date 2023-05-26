@@ -1,0 +1,133 @@
+package kodlama.io.Devs.business.concretes;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import kodlama.io.Devs.business.abstracts.ProgrammingLanguageService;
+import kodlama.io.Devs.business.requests.programmingLanguageRequest.CreatProgrammingLanguageRequest;
+import kodlama.io.Devs.business.requests.programmingLanguageRequest.UpdateProgrammingLanguageRequest;
+import kodlama.io.Devs.business.responses.programmingLanguageResponse.GetAllProgrammingLanguageResponse;
+import kodlama.io.Devs.business.responses.programmingLanguageResponse.GetByIdProgrammingLanguageResponse;
+import kodlama.io.Devs.core.utilities.mapper.ModelMapperService;
+import kodlama.io.Devs.dataAccess.abstracts.LanguagesTechnologyRepository;
+import kodlama.io.Devs.dataAccess.abstracts.ProgrammingLanguageRepository;
+import kodlama.io.Devs.entities.concretes.LanguageTechnology;
+import kodlama.io.Devs.entities.concretes.ProgrammingLanguage;
+
+@Service
+public class ProgrammingLanguageManager implements ProgrammingLanguageService{
+    
+	private ProgrammingLanguageRepository programmingLanguageRespository;
+	private ModelMapperService modelMapperService;
+	
+	
+	
+	
+	@Autowired
+	public ProgrammingLanguageManager(ProgrammingLanguageRepository programmingLanguageRespository,LanguagesTechnologyRepository languagesTechnologyRepository,ModelMapperService modelMapperService) {
+		this.programmingLanguageRespository = programmingLanguageRespository;
+		this.modelMapperService=modelMapperService;
+	
+	}
+	
+
+	@Override
+	public List<GetAllProgrammingLanguageResponse> getAll() {
+		
+		List<ProgrammingLanguage> languages=programmingLanguageRespository.findAll();
+		
+		for(ProgrammingLanguage language:languages) {
+			List<String> technologies=new ArrayList<String>();
+			for(LanguageTechnology languageTechnology:language.getTechnologies()) {
+				technologies.add(languageTechnology.getTechnologyName());
+			}
+		}
+		
+		
+		List<GetAllProgrammingLanguageResponse>allProgrammingLanguageResponses=languages.stream()
+				.map(langugage->this.modelMapperService.forResponse().map(language, GetAllProgrammingLanguageResponse.class))
+				.collect(Collectors.toList());
+				
+		
+	}
+
+	@Override
+	public void add(CreatProgrammingLanguageRequest creatProgrammingLanguageRequest) throws Exception {
+		List<ProgrammingLanguage> list=programmingLanguageRespository.findAll();
+		
+		ProgrammingLanguage language=new ProgrammingLanguage();
+		
+		language.setName(creatProgrammingLanguageRequest.getName());
+		
+		for(ProgrammingLanguage languagee:list) {
+			if(languagee.getName().equalsIgnoreCase(language.getName())) {
+				throw new Exception("Girilen programlama dili sistemde mevcuttur. Lütfen tekrardan deneyiniz");
+			}
+		}
+		
+		if(language.getName().isEmpty()) {
+			throw new Exception("Programlama dili ismi girilmedi. Lütfen giriniz.");
+		    }
+		
+		
+		
+		
+	 language=this.modelMapperService.forRequest().map(creatProgrammingLanguageRequest, ProgrammingLanguage.class);
+		
+		programmingLanguageRespository.save(language);
+		
+		
+		
+	}
+
+	
+	
+	
+	@Override
+	public void delete(int id){
+		programmingLanguageRespository.deleteById(id);
+		
+	}
+
+	
+	
+	
+	@Override
+	public void update(int id,UpdateProgrammingLanguageRequest updateProgrammingLanguageRequest) {
+		
+		
+		ProgrammingLanguage programmingLanguage=programmingLanguageRespository.findById(id).get();
+		programmingLanguage=this.modelMapperService.forRequest().map(updateProgrammingLanguageRequest, ProgrammingLanguage.class);
+		programmingLanguage.setId(id);
+	   programmingLanguageRespository.saveAndFlush(programmingLanguage);
+	    
+	
+	}
+
+	
+	
+	@Override
+	public Optional<GetByIdProgrammingLanguageResponse> getById(int id) {
+		
+		ProgrammingLanguage language=programmingLanguageRespository.findById(id).get();
+        List<String> technologiesName=new ArrayList<String>();
+		
+		for(LanguageTechnology technology:language.getTechnologies()) {
+			technologiesName.add(technology.getTechnologyName());
+		}
+		
+		GetByIdProgrammingLanguageResponse response=this.modelMapperService.forResponse()
+				                                  .map(language, GetByIdProgrammingLanguageResponse.class);
+		
+		response.setTechnologiesName(technologiesName);
+		return Optional.ofNullable(response);
+			
+		
+	}
+
+}

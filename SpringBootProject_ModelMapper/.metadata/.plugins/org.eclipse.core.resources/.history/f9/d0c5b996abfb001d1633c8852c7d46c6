@@ -1,0 +1,67 @@
+package kodlama.io.Devs.business.responses.languageTechnologyResponse;
+
+public class GetByIdLanguageTechnologyResponse {
+	private String name;
+	private int id;
+	private String languageName;
+	
+	
+	
+	public GetByIdLanguageTechnologyResponse(String name, int id, String languageName) {
+		this.name = name;
+		this.id = id;
+		this.languageName = languageName;
+	}
+
+
+
+	public GetByIdLanguageTechnologyResponse() {
+	
+	}
+
+
+
+	public String getName() {
+		return name;
+	}
+
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+
+	public int getId() {
+		return id;
+	}
+
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
+
+	public String getLanguageName() {
+		return languageName;
+	}
+
+
+
+	public void setLanguageName(String languageName) {
+		this.languageName = languageName;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}

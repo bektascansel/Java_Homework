@@ -1,0 +1,100 @@
+package kodlama.io.Devs.business.concretes;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import kodlama.io.Devs.business.abstracts.LanguagesTechnologyService;
+import kodlama.io.Devs.business.requests.languageTechnologyRequest.CreatLanguageTechnologyRequest;
+import kodlama.io.Devs.business.requests.languageTechnologyRequest.UpdateLanguageTechnologyRequest;
+import kodlama.io.Devs.business.responses.languageTechnologyResponse.GetAllLanguageTechnologyResponse;
+import kodlama.io.Devs.business.responses.languageTechnologyResponse.GetByIdLanguageTechnologyResponse;
+import kodlama.io.Devs.core.utilities.mapper.ModelMapperService;
+import kodlama.io.Devs.dataAccess.abstracts.LanguagesTechnologyRepository;
+import kodlama.io.Devs.dataAccess.abstracts.ProgrammingLanguageRepository;
+import kodlama.io.Devs.entities.concretes.LanguageTechnology;
+import kodlama.io.Devs.entities.concretes.ProgrammingLanguage;
+
+@Service
+public class LanguagesTechnologyManager implements LanguagesTechnologyService{
+
+	private LanguagesTechnologyRepository languagesTechnologyRepository;
+	private ProgrammingLanguageRepository programmingLanguageRepository;
+	private ModelMapperService modelMapperService;
+	
+	
+	@Autowired
+	public LanguagesTechnologyManager(LanguagesTechnologyRepository languagesTechnologyRepository,ProgrammingLanguageRepository programmingLanguageRepository,ModelMapperService modelMapperService) {
+		this.languagesTechnologyRepository = languagesTechnologyRepository;
+		this.programmingLanguageRepository=programmingLanguageRepository;
+		this.modelMapperService=modelMapperService;
+	}
+
+
+	@Override
+	public List<GetAllLanguageTechnologyResponse> getAll() {
+		List<LanguageTechnology> technologies=languagesTechnologyRepository.findAll();
+		List<GetAllLanguageTechnologyResponse> allLanguageTechnologyResponses=technologies.stream()
+				.map(technology->this.modelMapperService.forResponse().map(technologies, GetAllLanguageTechnologyResponse.class))
+				.collect(Collectors.toList());
+		
+		return allLanguageTechnologyResponses;
+		
+		
+		
+		
+		
+	}
+
+
+	@Override
+	public void add(CreatLanguageTechnologyRequest creatLanguageTechnologyRequest) {
+		   
+		LanguageTechnology languageTechnology=new LanguageTechnology();
+		ProgrammingLanguage programmingLanguage=programmingLanguageRepository.findById(creatLanguageTechnologyRequest.getLanguageId()).get();
+		languageTechnology.setTechnologyName(creatLanguageTechnologyRequest.getName());
+		languageTechnology.setLanguage(programmingLanguage);
+		languagesTechnologyRepository.save(languageTechnology);
+		
+		
+		
+	}
+
+
+	@Override
+	public void update(int id, UpdateLanguageTechnologyRequest updateLanguageTechnologyRequest) {
+		
+		LanguageTechnology languageTechnology=languagesTechnologyRepository.findById(id).get();
+		ProgrammingLanguage programmingLanguage=programmingLanguageRepository.findById(updateLanguageTechnologyRequest.getLanguageId()).get();
+		languageTechnology.setId(id);
+		languageTechnology.setLanguage(programmingLanguage);
+		languageTechnology.setTechnologyName(updateLanguageTechnologyRequest.getName());
+		languagesTechnologyRepository.save(languageTechnology);
+		
+	}
+	
+
+	@Override
+	public Optional<GetByIdLanguageTechnologyResponse> getById(int id) {
+		LanguageTechnology languageTechnology=languagesTechnologyRepository.findById(id).get();
+	     GetByIdLanguageTechnologyResponse response=this.modelMapperService.forResponse().map(languageTechnology, GetByIdLanguageTechnologyResponse.class);
+	    
+	     return Optional.ofNullable(response);
+	
+	}
+	
+
+	@Override
+	public void delete(int id) {
+		languagesTechnologyRepository.deleteById(id);
+	}
+
+	
+	
+	
+
+}

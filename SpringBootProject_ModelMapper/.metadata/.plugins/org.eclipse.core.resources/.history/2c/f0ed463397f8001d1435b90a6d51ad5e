@@ -1,0 +1,105 @@
+package kodlama.io.Devs.business.concretes;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import kodlama.io.Devs.business.abstracts.LanguagesTechnologyService;
+import kodlama.io.Devs.business.requests.languageTechnologyRequest.CreatLanguageTechnologyRequest;
+import kodlama.io.Devs.business.requests.languageTechnologyRequest.UpdateLanguageTechnologyRequest;
+import kodlama.io.Devs.business.responses.languageTechnologyResponse.GetAllLanguageTechnologyResponse;
+import kodlama.io.Devs.business.responses.languageTechnologyResponse.GetByIdLanguageTechnologyResponse;
+import kodlama.io.Devs.dataAccess.abstracts.LanguagesTechnologyRepository;
+import kodlama.io.Devs.dataAccess.abstracts.ProgrammingLanguageRepository;
+import kodlama.io.Devs.entities.concretes.LanguageTechnology;
+import kodlama.io.Devs.entities.concretes.ProgrammingLanguage;
+
+@Service
+public class LanguagesTechnologyManager implements LanguagesTechnologyService{
+
+	private LanguagesTechnologyRepository languagesTechnologyRepository;
+	private ProgrammingLanguageRepository programmingLanguageRepository;
+	
+	
+	@Autowired
+	public LanguagesTechnologyManager(LanguagesTechnologyRepository languagesTechnologyRepository,ProgrammingLanguageRepository programmingLanguageRepository) {
+		this.languagesTechnologyRepository = languagesTechnologyRepository;
+		this.programmingLanguageRepository=programmingLanguageRepository;
+	}
+
+
+	@Override
+	public List<GetAllLanguageTechnologyResponse> getAll() {
+		List<LanguageTechnology> technologies=languagesTechnologyRepository.findAll();
+		List<GetAllLanguageTechnologyResponse> allLanguageTechnologyResponses=new ArrayList<GetAllLanguageTechnologyResponse>();
+		
+		
+		for(LanguageTechnology technology:technologies) {
+			GetAllLanguageTechnologyResponse allLanguageTechnologyResponse=new GetAllLanguageTechnologyResponse();
+			allLanguageTechnologyResponse.setId(technology.getId());
+			allLanguageTechnologyResponse.setLanguageId(technology.getLanguage().getId());
+			allLanguageTechnologyResponse.setName(technology.getTechnologyName());
+			
+			allLanguageTechnologyResponses.add(allLanguageTechnologyResponse);
+		}
+		
+		return allLanguageTechnologyResponses;
+		
+		
+		
+		
+	}
+
+
+	@Override
+	public void add(CreatLanguageTechnologyRequest creatLanguageTechnologyRequest) {
+		   
+		LanguageTechnology languageTechnology=new LanguageTechnology();
+		ProgrammingLanguage programmingLanguage=programmingLanguageRepository.findById(creatLanguageTechnologyRequest.getLanguageId()).get();
+		languageTechnology.setTechnologyName(creatLanguageTechnologyRequest.getName());
+		languageTechnology.setLanguage(programmingLanguage);
+		languagesTechnologyRepository.save(languageTechnology);
+		
+		
+		
+	}
+
+
+	@Override
+	public void update(int id, UpdateLanguageTechnologyRequest updateLanguageTechnologyRequest) {
+		
+		LanguageTechnology languageTechnology=languagesTechnologyRepository.findById(id).get();
+		ProgrammingLanguage programmingLanguage=programmingLanguageRepository.findById(updateLanguageTechnologyRequest.getLanguageId()).get();
+		languageTechnology.setId(updateLanguageTechnologyRequest.getId());
+		languageTechnology.setLanguage(programmingLanguage);
+		languageTechnology.setTechnologyName(updateLanguageTechnologyRequest.getName());
+		languagesTechnologyRepository.save(languageTechnology);
+		
+	}
+	
+
+	@Override
+	public Optional<GetByIdLanguageTechnologyResponse> getById(int id) {
+		LanguageTechnology languageTechnology=languagesTechnologyRepository.findById(id).get();
+		//GetByIdLanguageTechnologyResponse getByIdReponse=new GetByIdLanguageTechnologyResponse();
+		//getByIdReponse.setId(languageTechnology.getId());
+		//getByIdReponse.setLanguageId(languageTechnology.getLanguage().getId());
+		//getByIdReponse.setName(languageTechnology.getTechnologyName());
+	
+		return new GetByIdLanguageTechnologyResponse(languageTechnology.getTechnologyName(),languageTechnology.getId(),languageTechnology.getLanguage().getId());
+	}
+
+
+	@Override
+	public void delete(int id) {
+		languagesTechnologyRepository.deleteById(id);
+	}
+
+	
+	
+	
+
+}

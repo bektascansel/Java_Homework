@@ -1,0 +1,49 @@
+package kodlama.io.Devs.business.concretes;
+
+import java.util.List;
+import java.util.Optional;
+
+import kodlama.io.Devs.business.abstracts.LanguagesTechnologyService;
+import kodlama.io.Devs.entities.concretes.LanguageTechnology;
+
+public class LanguagesTechnologyManager implements LanguagesTechnologyService{
+
+	
+	
+	
+	
+	
+	
+	
+	
+	@Override
+	public List<LanguageTechnology> getAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void add(LanguageTechnology languageTechnology) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(int id, LanguageTechnology languageTechnology) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Optional<LanguageTechnology> getById(int id) {
+		// TODO Auto-generated method stub
+		return Optional.empty();
+	}
+
+	@Override
+	public void delete(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

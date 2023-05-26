@@ -1,0 +1,59 @@
+package kodlama.io.Devs.webApi.controllers;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import kodlama.io.Devs.business.abstracts.LanguagesTechnologyService;
+import kodlama.io.Devs.entities.concretes.LanguageTechnology;
+import kodlama.io.Devs.entities.concretes.ProgrammingLanguage;
+
+@RestController
+@RequestMapping("/api/LanguagesTechnology")
+public class LanguagesTechnologyControllers {
+
+	private LanguagesTechnologyService languagesTechnologyService;
+
+	
+	@Autowired
+	public LanguagesTechnologyControllers(LanguagesTechnologyService languagesTechnologyService) {
+		this.languagesTechnologyService = languagesTechnologyService;
+	}
+
+    @GetMapping("/getAll")
+	List<LanguageTechnology> getAll() {
+		return languagesTechnologyService.getAll();
+	}
+	
+    
+	@PostMapping("/Post")
+	void Add(LanguageTechnology languageTechnology) throws Exception {
+		languagesTechnologyService.add(languageTechnology);
+	}
+	
+	@DeleteMapping("/Delete")
+	void delete(int id) {
+		programmingLanguageService.delete(id);
+	}
+    
+	@GetMapping("/getById")
+	Optional<ProgrammingLanguage> getById(int id) {
+		return programmingLanguageService.getById(id);
+	}
+	
+	@PutMapping("/getUpdate")
+	void update(int id,ProgrammingLanguage programmingLanguage) {
+		programmingLanguageService.update(id,programmingLanguage);
+	}
+	
+	
+	
+}

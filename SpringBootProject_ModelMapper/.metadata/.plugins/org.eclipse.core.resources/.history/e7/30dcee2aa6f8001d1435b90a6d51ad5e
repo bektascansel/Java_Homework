@@ -1,0 +1,68 @@
+package kodlama.io.Devs.business.responses.programmingLanguageResponse;
+
+import java.util.List;
+
+import kodlama.io.Devs.entities.concretes.LanguageTechnology;
+
+public class GetAllProgrammingLanguageResponse {
+	
+	private int id;
+	private String name;
+	private List<String> technologiesNames;
+	
+	
+	
+	
+	public GetAllProgrammingLanguageResponse(int id, String name, List<String> technologiesNames) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.technologiesNames = technologiesNames;
+	}
+
+
+
+	public GetAllProgrammingLanguageResponse() {
+		
+	}
+
+
+
+	public int getId() {
+		return id;
+	}
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+	public List<LanguageTechnology> getTechnologies() {
+		return technologies;
+	}
+
+
+	public void setTechnologies(List<LanguageTechnology> technologies) {
+		this.technologies = technologies;
+	}
+	
+	
+	
+
+	
+	
+	
+	
+	
+}

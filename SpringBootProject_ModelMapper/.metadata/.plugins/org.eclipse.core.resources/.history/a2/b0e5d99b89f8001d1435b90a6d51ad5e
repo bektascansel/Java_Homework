@@ -1,0 +1,14 @@
+package kodlama.io.Devs.business.requests.languageTechnologyRequest;
+
+import java.util.List;
+
+import kodlama.io.Devs.entities.concretes.ProgrammingLanguage;
+
+public class CreatLanguageTechnologyRequest {
+	
+	private String name;
+	
+	private List<ProgrammingLanguage> languages;
+	
+
+}

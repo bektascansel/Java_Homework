@@ -1,0 +1,21 @@
+package kodlama.io.Devs.business.abstracts;
+import java.util.List;
+import java.util.Optional;
+
+import kodlama.io.Devs.business.requests.programmingLanguageRequest.CreatProgrammingLanguageRequest;
+import kodlama.io.Devs.business.requests.programmingLanguageRequest.UpdateProgrammingLanguageRequest;
+import kodlama.io.Devs.business.responses.programmingLanguageResponse.GetAllProgrammingLanguageResponse;
+import kodlama.io.Devs.business.responses.programmingLanguageResponse.GetByIdProgrammingLanguageResponse;
+public interface ProgrammingLanguageService {
+	
+	
+	List<GetAllProgrammingLanguageResponse> getAll();
+	void add(CreatProgrammingLanguageRequest creatProgrammingLanguageRequest) throws Exception;
+	void update(int id,UpdateProgrammingLanguageRequest languageRequest);
+	Optional<GetByIdProgrammingLanguageResponse> getById(int id);
+	void delete(int id);
+	
+	
+	
+
+}

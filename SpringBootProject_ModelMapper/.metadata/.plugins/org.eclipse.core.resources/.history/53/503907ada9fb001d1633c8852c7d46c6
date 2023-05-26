@@ -1,0 +1,8 @@
+package kodlama.io.Devs.core.utilities.mapper;
+
+public interface ModelMapperService {
+
+	ModelMapper forRequest();
+	
+	
+}

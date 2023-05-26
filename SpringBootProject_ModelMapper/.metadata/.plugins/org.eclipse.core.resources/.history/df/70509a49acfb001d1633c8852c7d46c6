@@ -1,0 +1,17 @@
+package kodlama.io.Devs.business.responses.languageTechnologyResponse;
+
+public class GetAllLanguageTechnologyResponse {
+	
+	private String technologyName;
+	private int id;
+	private String languageName;
+	
+	
+	
+	
+	
+	
+	
+	
+
+}

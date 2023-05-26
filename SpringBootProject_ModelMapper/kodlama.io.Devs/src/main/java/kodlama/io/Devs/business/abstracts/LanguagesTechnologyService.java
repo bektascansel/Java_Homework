@@ -1,0 +1,20 @@
+package kodlama.io.Devs.business.abstracts;
+
+import java.util.List;
+import java.util.Optional;
+
+import kodlama.io.Devs.business.requests.languageTechnologyRequest.CreatLanguageTechnologyRequest;
+import kodlama.io.Devs.business.requests.languageTechnologyRequest.UpdateLanguageTechnologyRequest;
+import kodlama.io.Devs.business.responses.languageTechnologyResponse.GetAllLanguageTechnologyResponse;
+import kodlama.io.Devs.business.responses.languageTechnologyResponse.GetByIdLanguageTechnologyResponse;
+
+public interface LanguagesTechnologyService {
+	List<GetAllLanguageTechnologyResponse> getAll();
+	void add(CreatLanguageTechnologyRequest creatLanguageTechnologyRequest);
+	void update(int id,UpdateLanguageTechnologyRequest updateLanguageTechnologyRequest);
+	Optional<GetByIdLanguageTechnologyResponse> getById(int id);
+	void delete(int id);    
+	
+	
+	
+}
