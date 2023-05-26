@@ -1,5 +1,0 @@
-package kodlama.io.Devs.dataAccess.business;
-
-public interface ProgrammingLanguageRepository {
-
-}
